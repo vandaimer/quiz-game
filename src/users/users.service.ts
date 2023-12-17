@@ -20,14 +20,20 @@ export class UsersService {
     return users.map(this.sanitazeUserToResponse);
   }
 
-  async findOne(id: string): Promise<UserResponseDto | undefined> {
+  async findOne(id: string): Promise<User | undefined> {
     const user = await this.usersRepository.findOne(id);
 
-    if (user) {
-      return this.sanitazeUserToResponse(user);
-    }
+    if (user) return user;
 
     throw Error(`User '${id}' not found`);
+  }
+
+  async findOneByUsername(username: string): Promise<User | undefined> {
+    const user = await this.usersRepository.findOneByUsername(username);
+
+    if (user) return user;
+
+    throw Error(`User '${username}' not found`);
   }
 
   private sanitazeUserToResponse(user: User): UserResponseDto {
