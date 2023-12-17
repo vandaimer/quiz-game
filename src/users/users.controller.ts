@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UsePipes } from '@nestjs/common';
+import { Controller, Post, Body, UsePipes, Get } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, schemaCreateUserDto } from './dto/create-user.dto';
 import { ZodValidationPipe } from 'src/pipes/zod-pipe';
@@ -11,5 +11,10 @@ export class UsersController {
   @UsePipes(new ZodValidationPipe(schemaCreateUserDto))
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
   }
 }
