@@ -7,7 +7,7 @@ import { ZodValidationPipe } from 'src/pipes/zod-pipe';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
+  @Post('register')
   @UsePipes(new ZodValidationPipe(schemaCreateUserDto))
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
