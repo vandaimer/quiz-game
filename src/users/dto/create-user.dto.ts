@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { userSchema } from '../entities/user.entity';
+import { schemaUser } from '../entities/user.entity';
 
-const createUserDtoSchema = userSchema.omit({ id: true });
+const schemaCreateUserDto = schemaUser.omit({ id: true });
 
-type CreateUserDto = z.infer<typeof createUserDtoSchema>;
+type CreateUserDto = z.infer<typeof schemaCreateUserDto>;
 
-export { CreateUserDto, createUserDtoSchema };
+export { CreateUserDto, schemaCreateUserDto };

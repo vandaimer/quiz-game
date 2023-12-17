@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const userSchema = z
+const schemaUser = z
   .object({
     id: z.string().uuid(),
     username: z.string().min(1),
@@ -9,6 +9,6 @@ const userSchema = z
   })
   .required();
 
-type User = z.infer<typeof userSchema>;
+type User = z.infer<typeof schemaUser>;
 
-export { User, userSchema };
+export { User, schemaUser };

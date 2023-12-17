@@ -9,7 +9,7 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto, createUserDtoSchema } from './dto/create-user.dto';
+import { CreateUserDto, schemaCreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ZodValidationPipe } from 'src/pipes/zod-pipe';
 
@@ -18,7 +18,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(createUserDtoSchema))
+  @UsePipes(new ZodValidationPipe(schemaCreateUserDto))
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
