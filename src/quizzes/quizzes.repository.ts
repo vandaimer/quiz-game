@@ -17,6 +17,8 @@ type CreateQuizRepository = z.infer<typeof schemaCreateQuizRepository>;
 
 interface QuizzesRepository {
   create(user: CreateQuizRepository): Promise<Quiz | null>;
+  findAll(): Promise<Quiz[]>;
+  findById(id: string): Promise<Quiz | null>;
 }
 
 export { QuizzesRepository, CreateQuizRepository };

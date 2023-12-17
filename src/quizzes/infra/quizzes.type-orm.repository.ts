@@ -14,6 +14,27 @@ class QuizTypeOrmRepository implements QuizzesRepository {
   async create(quiz: CreateQuizDto): Promise<Quiz | null> {
     return this.repository.save(quiz);
   }
+
+  async findAll(): Promise<Quiz[]> {
+    return this.repository.find();
+  }
+
+  async findById(id: string): Promise<Quiz | null> {
+    const result = await this.repository.find({
+      relations: {
+        questions: true,
+      },
+      where: {
+        id,
+      },
+    });
+
+    if (result.length) {
+      return result[0];
+    }
+
+    return null;
+  }
 }
 
 export { QuizTypeOrmRepository };

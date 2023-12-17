@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { QuizzesRepository } from './quizzes.repository';
+import { Quiz } from './entities/quiz.entity';
 
 @Injectable()
 export class QuizzesService {
@@ -21,11 +22,11 @@ export class QuizzesService {
     return this.quizzesRepository.create(createQuizRepository);
   }
 
-  findAll() {
-    return `This action returns all quizzes`;
+  findAll(): Promise<Quiz[]> {
+    return this.quizzesRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quiz`;
+  findOne(id: string) {
+    return this.quizzesRepository.findById(id);
   }
 }
