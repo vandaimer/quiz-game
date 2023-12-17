@@ -9,7 +9,7 @@ const schemaUser = z
     createdAt: z.date(),
     updatedAt: z.date(),
   })
-  .required();
+  .strict();
 
 type User = z.infer<typeof schemaUser>;
 
