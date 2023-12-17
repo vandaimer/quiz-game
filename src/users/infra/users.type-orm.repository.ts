@@ -18,8 +18,8 @@ class UserTypeOrmRepository implements UsersRepository {
     return await this.repository.find();
   }
 
-  async findOne(id: string): Promise<User> {
-    return await this.repository.findOneByOrFail({ id: id });
+  async findOne(id: string): Promise<User | null> {
+    return await this.repository.findOneBy({ id: id });
   }
 }
 

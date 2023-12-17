@@ -20,6 +20,16 @@ export class UsersService {
     return users.map(this.sanitazeUserToResponse);
   }
 
+  async findOne(id: string): Promise<UserResponseDto | undefined> {
+    const user = await this.usersRepository.findOne(id);
+
+    if (user) {
+      return this.sanitazeUserToResponse(user);
+    }
+
+    throw Error(`User '${id}' not found`);
+  }
+
   private sanitazeUserToResponse(user: User): UserResponseDto {
     // eslint-disable-next-line
     const { password: _, ...rest } = user;
