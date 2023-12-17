@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { User, schemaUser } from './entities/user.entity';
 
-const schemaCreateUserRepository = schemaUser.omit({ id: true }).required();
+const schemaCreateUserRepository = schemaUser
+  .omit({ id: true, createdAt: true, updatedAt: true })
+  .required();
 
 type CreateUserRepository = z.infer<typeof schemaCreateUserRepository>;
 
