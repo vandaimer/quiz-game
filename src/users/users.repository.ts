@@ -7,6 +7,8 @@ type CreateUserRepository = z.infer<typeof schemaCreateUserRepository>;
 
 interface UsersRepository {
   create(user: CreateUserRepository): Promise<User>;
+  findAll(): Promise<User[]>;
+  findOne(id: string): Promise<User>;
 }
 
 export { UsersRepository, CreateUserRepository };
