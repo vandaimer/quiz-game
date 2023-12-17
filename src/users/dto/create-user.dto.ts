@@ -9,9 +9,9 @@ const schemaCreateUserDto = schemaUser
   })
   .strict();
 
-const schemaUserCreatedDto = schemaUser.omit({ password: true });
+const schemaUserResponseDto = schemaUser.omit({ password: true });
 
 type CreateUserDto = z.infer<typeof schemaCreateUserDto>;
-type UserCreatedDto = z.infer<typeof schemaUserCreatedDto>;
+type UserResponseDto = z.infer<typeof schemaUserResponseDto>;
 
-export { CreateUserDto, UserCreatedDto, schemaCreateUserDto };
+export { CreateUserDto, UserResponseDto, schemaCreateUserDto };
