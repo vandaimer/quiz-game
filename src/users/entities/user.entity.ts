@@ -6,6 +6,8 @@ const schemaUser = z
     username: z.string().min(1),
     email: z.string().min(1),
     password: z.string().min(1),
+    createdAt: z.date(),
+    updatedAt: z.date(),
   })
   .required();
 
