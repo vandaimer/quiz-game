@@ -11,7 +11,6 @@ class QuizRepositoryEntity {
 
   @OneToMany(() => QuizQuestionRepositoryEntity, (question) => question.quiz, {
     cascade: true,
-    eager: true,
   })
   questions: QuizQuestionRepositoryEntity[];
 
