@@ -1,4 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { QuizQuestionRepositoryEntity } from 'src/quizzes/entities/question.orm.entity';
+import { QuizRepositoryEntity } from 'src/quizzes/entities/quiz.orm.entity';
 import { UserRepositoryEntity } from 'src/users/entities/user.orm.entity';
 
 const typeOrmModule = TypeOrmModule.forRoot({
@@ -8,7 +10,11 @@ const typeOrmModule = TypeOrmModule.forRoot({
   username: 'postgres',
   password: 'password',
   database: 'postgres',
-  entities: [UserRepositoryEntity],
+  entities: [
+    UserRepositoryEntity,
+    QuizRepositoryEntity,
+    QuizQuestionRepositoryEntity,
+  ],
   synchronize: true,
 });
 
