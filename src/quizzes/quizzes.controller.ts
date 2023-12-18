@@ -26,11 +26,13 @@ export class QuizzesController {
     return this.quizzesService.create(req.user as UserLogin, createQuizDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.quizzesService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.quizzesService.findOne(id);
