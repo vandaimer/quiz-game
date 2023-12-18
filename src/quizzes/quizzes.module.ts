@@ -7,9 +7,11 @@ import { QuizQuestionRepositoryEntity } from './entities/question.orm.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
+import { NatsClientModule } from 'src/nats-client/nats-client.module';
 
 @Module({
   imports: [
+    NatsClientModule,
     TypeOrmModule.forFeature([
       QuizRepositoryEntity,
       QuizQuestionRepositoryEntity,

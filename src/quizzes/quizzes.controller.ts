@@ -8,12 +8,13 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { QuizzesService } from './quizzes.service';
+import { EVENT_PATTERN_CREATED_QUIZ, QuizzesService } from './quizzes.service';
 import { CreateQuizDto, schemaCreateQuizDto } from './dto/create-quiz.dto';
 import { ZodValidationPipe } from 'src/pipes/zod-pipe';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserLogin } from 'src/users/entities/user.entity';
 import { Request as RequestType } from 'express';
+import { EventPattern, Payload } from '@nestjs/microservices';
 
 @Controller('quizzes')
 export class QuizzesController {
@@ -36,5 +37,10 @@ export class QuizzesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.quizzesService.findOne(id);
+  }
+
+  @EventPattern(EVENT_PATTERN_CREATED_QUIZ)
+  processQuizCreatedBackground(@Payload() data: any) {
+    console.log(`Payload comming from ${EVENT_PATTERN_CREATED_QUIZ}`, data);
   }
 }
