@@ -67,6 +67,7 @@ src
 
 ### Next Steps
 
+- Db Migrations
 - Validate password while creating User
   - Min of 30 characters looks good for nowadays
 - Do NOT save a plaintext password
