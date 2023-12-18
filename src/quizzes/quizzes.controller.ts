@@ -41,6 +41,6 @@ export class QuizzesController {
 
   @EventPattern(EVENT_PATTERN_CREATED_QUIZ)
   processQuizCreatedBackground(@Payload() data: any) {
-    console.log(`Payload comming from ${EVENT_PATTERN_CREATED_QUIZ}`, data);
+    console.log(`Payload coming from ${EVENT_PATTERN_CREATED_QUIZ}`, data);
   }
 }
