@@ -22,6 +22,7 @@ const schemaQuiz = z.object({
   questions: z.array(schemaQuizQuestion),
   createdAt: z.date(),
   updatedAt: z.date(),
+  owner: z.string().min(1),
 });
 
 type QuizQuestion = z.infer<typeof schemaQuizQuestion>;

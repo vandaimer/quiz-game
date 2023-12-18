@@ -11,6 +11,7 @@ const schemaQuizQuestionDto = z.object({
 const schemaCreateQuizRepository = z.object({
   title,
   questions: z.array(schemaQuizQuestionDto),
+  owner: z.string().min(1),
 });
 
 type CreateQuizRepository = z.infer<typeof schemaCreateQuizRepository>;
