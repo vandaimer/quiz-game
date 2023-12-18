@@ -8,6 +8,10 @@ Having docker & docker-compose installer, you should run:
 - `docker-compose up` and wait for the docker images download and build. This will start the project in `develop mode`.
 - The project will be available on `http://localhost:3000`
 
+## Run test
+
+You should run `docker-compose test`
+
 ## What was implemented?
 
 This project implements a REST API and NATS producers/consumer.
@@ -67,6 +71,7 @@ src
 
 ### Next Steps
 
+- Improve test coverage (around 95% looks good)
 - Make ready to deploy on production env
 - Db Migrations
 - Validate password while creating User
