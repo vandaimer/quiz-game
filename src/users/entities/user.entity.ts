@@ -11,6 +11,14 @@ const schemaUser = z
   })
   .strict();
 
-type User = z.infer<typeof schemaUser>;
+const schemaUserLogin = schemaUser.omit({
+  email: true,
+  password: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
-export { User, schemaUser };
+type User = z.infer<typeof schemaUser>;
+type UserLogin = z.infer<typeof schemaUserLogin>;
+
+export { User, UserLogin, schemaUser };
