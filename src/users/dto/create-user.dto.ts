@@ -14,4 +14,12 @@ const schemaUserResponseDto = schemaUser.omit({ password: true });
 type CreateUserDto = z.infer<typeof schemaCreateUserDto>;
 type UserResponseDto = z.infer<typeof schemaUserResponseDto>;
 
-export { CreateUserDto, UserResponseDto, schemaCreateUserDto };
+const ValidateCreateUser = (payload: unknown) =>
+  schemaCreateUserDto.parse(payload);
+
+export {
+  CreateUserDto,
+  UserResponseDto,
+  schemaCreateUserDto,
+  ValidateCreateUser,
+};
