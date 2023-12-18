@@ -2,7 +2,11 @@
 
 # Run locally
 
-Having docker & docker-compose installer, you should run `docker-compose up` and wait for the docker images download and build. This will start the project in `develop mode`.
+Having docker & docker-compose installer, you should run:
+
+- `cp .env.example .env`
+- `docker-compose up` and wait for the docker images download and build. This will start the project in `develop mode`.
+- The project will be available on `http://localhost:3000`
 
 ## What was implemented?
 
@@ -60,3 +64,25 @@ src
     ├── entities
     └── infra
 ```
+
+### Next Steps
+
+- Validate password while creating User
+  - Min of 30 characters looks good for nowadays
+- Do NOT save a plaintext password
+  - If not using auth0 or similar, at leas use a asymmetric key pair to encrypt/decrypt the password
+- Correct validation of id while performing "Get entity by Id"
+- Improve error handling
+- Add Swagger
+- Add multi stage build on docker-file
+- Add `api/v1` versioning
+  - Help for letter new versions
+- Implement a config module to read env vars from `.env`
+- Make sure db connection is global and not creating many connections
+- Validate properly payload on service side (not only on the controller side as doing now)
+- Split into micro services is a MUST
+  - One for the Users
+  - One for the Questions
+  - On for the Game itself
+    - To control the events/answers
+  - Another for the leaderboard
