@@ -1,73 +1,62 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Quiz Game
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Run locally
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Having docker & docker-compose installer, you should run `docker-compose up` and wait for the docker images download and build. This will start the project in `develop mode`.
 
-## Description
+## What was implemented?
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project implements a REST API and NATS producers/consumer.
 
-## Installation
+### The endpoints available are:
 
-```bash
-$ npm install
+- `POST /users/register`
+- `POST /users/login`
+- `POST /quizzes`
+- `GET /quizzes`
+- `GET /quizzes/:id`
+
+[Examples with curl](curl-examples.md)
+
+---
+
+- `POST /quizzes/:id/participate` - _MISSING_
+- `POST /quizzes/:id/answer` - _MISSING_
+- `GET /quizzes/:id/score` - _MISSING_
+- `GET /leaderboard` - _MISSING_
+
+### Use Cases
+
+- As a user, I want to register an account, so that I can create and participate in quizzes.
+  - _The user can register and create quizzes, but cannot participate in other quizzes_
+- As a user, I want to log in to my account, so that I can access my quizzes and leaderboard standings.
+  - _The user can log in, but cannot access their quizzes yet_
+- . As a quiz creator, I want to create a new quiz with multiple-choice questions, so that other users can participate in it.
+  - _The user can create a quiz with multiple-choice questions, but others cannot participate on it yet_
+- As a participant, I want to view available quizzes, so that I can choose one to join
+  - _Not implemented yet_
+- As a participant, I want to answer quiz questions in real-time, so that I can compete with others.
+  - _Not implemented yet_
+- As a participant, I want to view my score and streak score, so that I can see how well I am doing.
+  - _Not implemented yet_
+- As a user, I want to view the leaderboard, so that I can see where I stand among other participants.
+  - _Not implemented yet_
+
+## Project Architecture
+
+In order to follow a hexagonal/clean architecture approach, I've organized the project in the following way:
+
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+src
+├── auth - Responsible to abstract the authenteication. Later it could be replaced by auth0 (or similar) without changing the core/domain.
+├── infra - Responsible for connection with db or external services. An improvement is move NATS inside here.
+├── nats-client - NATS client. First time using NATS and Nestjs, at leat is very decoupled from the project.
+├── quizzes - Quiz Management Module.
+│   ├── dto - Definition of what is coming from outside or returning to the user.
+│   ├── entities - Core definition with what is a Quiz entity. Here there is NOT coupling with anything else, only pure definitions.
+│   └── infra - Implementation of db connection/mapping.
+└── users - User Management Module. Same organization as "Quizzes"
+    ├── dto
+    ├── entities
+    └── infra
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
