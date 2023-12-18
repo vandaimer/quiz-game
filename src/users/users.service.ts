@@ -1,14 +1,22 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateUserDto, UserResponseDto } from './dto/create-user.dto';
+import {
+  CreateUserDto,
+  UserResponseDto,
+  ValidateCreateUser,
+} from './dto/create-user.dto';
 import { UsersRepository } from './users.repository';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  @Inject('UsersRepository')
-  private usersRepository: UsersRepository;
+  constructor(
+    @Inject('UsersRepository')
+    private usersRepository: UsersRepository,
+  ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserResponseDto> {
+    ValidateCreateUser(createUserDto);
+
     const created = await this.usersRepository.create(createUserDto);
 
     return this.sanitazeUserToResponse(created);
