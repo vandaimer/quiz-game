@@ -67,6 +67,7 @@ src
 
 ### Next Steps
 
+- Make ready to deploy on production env
 - Db Migrations
 - Validate password while creating User
   - Min of 30 characters looks good for nowadays
